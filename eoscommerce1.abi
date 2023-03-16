@@ -4,7 +4,7 @@
     "types": [],
     "structs": [
         {
-            "name": "account_balance",
+            "name": "account_balances",
             "base": "",
             "fields": [
                 {
@@ -12,7 +12,11 @@
                     "type": "name"
                 },
                 {
-                    "name": "balance",
+                    "name": "ecom_balance",
+                    "type": "asset"
+                },
+                {
+                    "name": "wax_balance",
                     "type": "asset"
                 }
             ]
@@ -32,14 +36,9 @@
             ]
         },
         {
-            "name": "storebalance",
+            "name": "erase",
             "base": "",
-            "fields": [
-                {
-                    "name": "account",
-                    "type": "name"
-                }
-            ]
+            "fields": []
         }
     ],
     "actions": [
@@ -49,15 +48,15 @@
             "ricardian_contract": ""
         },
         {
-            "name": "storebalance",
-            "type": "storebalance",
+            "name": "erase",
+            "type": "erase",
             "ricardian_contract": ""
         }
     ],
     "tables": [
         {
             "name": "balances",
-            "type": "account_balance",
+            "type": "account_balances",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
