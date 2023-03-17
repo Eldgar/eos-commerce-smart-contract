@@ -4,11 +4,15 @@
     "types": [],
     "structs": [
         {
-            "name": "account_balances",
+            "name": "balances",
             "base": "",
             "fields": [
                 {
-                    "name": "account",
+                    "name": "user",
+                    "type": "uint64"
+                },
+                {
+                    "name": "username",
                     "type": "name"
                 },
                 {
@@ -22,31 +26,12 @@
             ]
         },
         {
-            "name": "addbalance",
-            "base": "",
-            "fields": [
-                {
-                    "name": "account",
-                    "type": "name"
-                },
-                {
-                    "name": "quantity",
-                    "type": "asset"
-                }
-            ]
-        },
-        {
             "name": "erase",
             "base": "",
             "fields": []
         }
     ],
     "actions": [
-        {
-            "name": "addbalance",
-            "type": "addbalance",
-            "ricardian_contract": ""
-        },
         {
             "name": "erase",
             "type": "erase",
@@ -56,7 +41,7 @@
     "tables": [
         {
             "name": "balances",
-            "type": "account_balances",
+            "type": "balances",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
