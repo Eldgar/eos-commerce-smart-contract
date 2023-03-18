@@ -4,6 +4,16 @@
     "types": [],
     "structs": [
         {
+            "name": "addrewards",
+            "base": "",
+            "fields": [
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
             "name": "balances",
             "base": "",
             "fields": [
@@ -29,12 +39,41 @@
             "name": "erase",
             "base": "",
             "fields": []
+        },
+        {
+            "name": "giverewards",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "rewards",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "uint64"
+                },
+                {
+                    "name": "wax_balance",
+                    "type": "asset"
+                }
+            ]
         }
     ],
     "actions": [
         {
+            "name": "addrewards",
+            "type": "addrewards",
+            "ricardian_contract": ""
+        },
+        {
             "name": "erase",
             "type": "erase",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "giverewards",
+            "type": "giverewards",
             "ricardian_contract": ""
         }
     ],
@@ -42,6 +81,13 @@
         {
             "name": "balances",
             "type": "balances",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "rewards",
+            "type": "rewards",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
