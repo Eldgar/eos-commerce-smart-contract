@@ -42,7 +42,7 @@ class [[eosio::contract("eoscommerce3")]] eoscommerce3 : public eosio::contract 
     void on_transfer(name from, name to, asset quantity, std::string memo);
 
     [[eosio::action]]
-    void addrewards(asset quantity);
+    void addrewards(asset quantity, name nft_owner);
 
     [[eosio::action]]
     void giverewards();

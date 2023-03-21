@@ -76,24 +76,49 @@ void eoscommerce3::giverewards(){
     }
 		auto reward_itr = rewards.find( _self.value );
 				rewards.modify( reward_itr, same_payer, [&](auto &row) {
-				row.wax_balance += asset(0, wax_symbol);
+				row.wax_balance = asset(0, wax_symbol);
 			});
 }
 
 
 [[eosio::action]]
-void eoscommerce3::addrewards(asset quantity) {
-  require_auth(_self); // Require authorization of the contract owner
+void eoscommerce3::addrewards(asset quantity, name nft_owner) {
+	require_auth(_self); // Require authorization of the contract owner
+	int64_t pool_reward_amount = (quantity.amount * 12) / 100;
+    int64_t user_reward_amount = (quantity.amount * 88) / 100;
+	asset pool_reward(pool_reward_amount, wax_symbol);
+	asset user_reward(user_reward_amount, wax_symbol);
+  	
   	rewards_balance_table rewards(_self, _self.value);
 		auto itr = rewards.find( _self.value );
 	if( itr != rewards.end() ){
 				rewards.modify( itr, same_payer, [&](auto &row) {
-				row.wax_balance += quantity;
+				row.wax_balance += pool_reward;
 			});
 		} else {
 			rewards.emplace( _self, [&](auto &row) {
 				row.user = _self.value;
-				row.wax_balance = quantity;
+				row.wax_balance = pool_reward;
+			});
+
+		}
+
+	account_balance_table balance( _self, _self.value );
+		auto itr_users = balance.find( nft_owner.value );
+
+		if( itr_users != balance.end() ){
+			//modify this user's balance
+			balance.modify( itr_users, same_payer, [&](auto &row) {
+				row.wax_balance += user_reward;
+			});
+		} else {
+			balance.emplace( _self, [&](auto &row) {
+
+				row.user = nft_owner.value;
+        		row.username = nft_owner;
+				row.ecom_balance = asset(0, ecom_symbol);
+				row.wax_balance = user_reward;
+
 			});
 
 		}
