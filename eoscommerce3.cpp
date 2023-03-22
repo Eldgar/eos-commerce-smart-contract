@@ -71,10 +71,6 @@ void eoscommerce3::giverewards(){
 	}
 	check(has_sufficient_balance, "Not enough rewards accumulated");
 
-    for (const auto& row : rewards) {
-        total_wax += row.wax_balance;
-    };
-
     // Iterate through the table and add wax balance to each entry
     auto itr = balances.begin();
     while (itr != balances.end()) {
