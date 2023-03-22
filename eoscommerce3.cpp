@@ -60,10 +60,20 @@ void eoscommerce3::giverewards(){
     eosio::asset total_ecom_deposited = total_ecom();
     eosio::asset total_wax(0, wax_symbol);
     rewards_balance_table rewards( _self, _self.value );
+	
+	//used to check so rewards will not be distributed for insignificant amounts
+	bool has_sufficient_balance = false;
+	for (const auto& row : rewards) {
+		total_wax += row.wax_balance;
+		if (row.wax_balance.amount > 100) {
+			has_sufficient_balance = true;
+		}
+	}
+	check(has_sufficient_balance, "Not enough rewards accumulated");
 
     for (const auto& row : rewards) {
         total_wax += row.wax_balance;
-    }
+    };
 
     // Iterate through the table and add wax balance to each entry
     auto itr = balances.begin();
