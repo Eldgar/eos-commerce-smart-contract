@@ -34,7 +34,7 @@ void eoscommerce3::withdraw(name username) {
 
     // Store the user's balance in a variable
     quantity = itr->wax_balance;
-    check(quantity.amount > 10, "You must have a balance greater than 10 WAX to withdraw");
+    check(quantity.amount > 100000000, "You must have a balance greater than 1 WAX to withdraw");
 
     // Modify this user's entry
     balances.modify(itr, same_payer, [&](auto &row) {
@@ -85,11 +85,11 @@ void eoscommerce3::giverewards(){
     eosio::asset total_wax(0, wax_symbol);
     rewards_balance_table rewards( _self, _self.value );
 	
-	//used to check so rewards will not be distributed for insignificant amounts
+	//used to check so rewards will not be distributed for insignificant amounts (> 100 WAX)
 	bool has_sufficient_balance = false;
 	for (const auto& row : rewards) {
 		total_wax += row.wax_balance;
-		if (row.wax_balance.amount > 100) {
+		if (row.wax_balance.amount > 10000000000) {
 			has_sufficient_balance = true;
 		}
 	}
