@@ -62,6 +62,16 @@
                     "type": "asset"
                 }
             ]
+        },
+        {
+            "name": "withdraw",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                }
+            ]
         }
     ],
     "actions": [
@@ -78,6 +88,11 @@
         {
             "name": "giverewards",
             "type": "giverewards",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdraw",
+            "type": "withdraw",
             "ricardian_contract": ""
         }
     ],

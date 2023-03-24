@@ -50,6 +50,9 @@ class [[eosio::contract("eoscommerce3")]] eoscommerce3 : public eosio::contract 
     [[eosio::action]]
     void erase();
 
+    [[eosio::action]]
+    void withdraw(name username);
+
     asset total_ecom();
 
     float ecomwax_ratio(name _self);

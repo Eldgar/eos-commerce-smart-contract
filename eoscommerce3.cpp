@@ -22,6 +22,30 @@ void eoscommerce3::erase() {
   }
 }
 
+// Allow users to withdraw their balance
+void eoscommerce3::withdraw(name username) {
+    require_auth(username);
+    asset quantity = asset(0, wax_symbol);
+    account_balance_table balances(get_self(), get_self().value);
+	
+    auto itr = balances.find(username.value);
+
+    check(itr != balances.end(), "This account doesn't exist");
+
+    // Store the user's balance in a variable
+    quantity = itr->wax_balance;
+    check(quantity.amount > 10, "You must have a balance greater than 10 WAX to withdraw");
+
+    // Modify this user's entry
+    balances.modify(itr, same_payer, [&](auto &row) {
+        row.wax_balance = asset(0, wax_symbol);
+    });
+
+    action(permission_level{eosio::name("eoscommerce3"), "active"_n},
+           "eosio.token"_n, "transfer"_n,
+           std::tuple{eosio::name("eoscommerce3"), username, quantity, std::string("You have made a withdrawal from EOS Commerce")}).send();
+}
+
 
 asset eoscommerce3::total_ecom() {
     account_balance_table balances( _self, _self.value );
